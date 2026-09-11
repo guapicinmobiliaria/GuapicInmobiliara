@@ -1,0 +1,33 @@
+---
+layout: base.njk
+---
+<div class="prop-detail-hero">
+  <img src="{{ imagen }}" alt="{{ titulo }}">
+</div>
+<div class="prop-detail wrap">
+  <div>
+    <p class="meta" style="color:var(--sage); font-size:0.85rem;">{{ estado }}</p>
+    <h1>{{ titulo }}</h1>
+    <p style="color:#6b6153;">{{ sector }}</p>
+    <ul class="specs-list">
+      {% if construccion_m2 %}<li><b>{{ construccion_m2 }} m²</b>Construcción</li>{% endif %}
+      {% if terreno_m2 %}<li><b>{{ terreno_m2 }} m²</b>Terreno</li>{% endif %}
+      {% if dormitorios %}<li><b>{{ dormitorios }}</b>Dormitorios</li>{% endif %}
+      {% if banos %}<li><b>{{ banos }}</b>Baños</li>{% endif %}
+      {% if parqueaderos %}<li><b>{{ parqueaderos }}</b>Parqueaderos</li>{% endif %}
+    </ul>
+    <div>{{ content | safe }}</div>
+  </div>
+  <aside class="contact-card">
+    <p class="precio-grande">{{ precio | moneda }}</p>
+    <h3>¿Te interesa esta propiedad?</h3>
+    <p style="color:#C9CFD6; font-size:0.9rem;">Escríbeme directo y coordinamos una visita.</p>
+    <a class="btn" href="https://wa.me/593969851813?text=Hola%20Franklin%2C%20me%20interesa%20{{ titulo | urlencode }}">Escribir por WhatsApp</a>
+    <a class="btn-outline" style="display:block; text-align:center; margin-top:10px;" href="/contacto/">Ver otras formas de contacto</a>
+  </aside>
+</div>
+<section>
+  <div class="wrap">
+    <a href="/propiedades/" style="color:var(--sage); font-size:0.9rem;">&larr; Ver todas las propiedades</a>
+  </div>
+</section>

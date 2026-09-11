@@ -1,0 +1,35 @@
+---
+layout: base.njk
+titulo: Propiedades
+---
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Catálogo de propiedades</h2>
+        <p>Todo el portafolio activo en Cuenca. Precios negociables sujetos a verificación directa.</p>
+      </div>
+    </div>
+    <div class="catalogo-grid">
+      {% for prop in collections.propiedades %}
+      <div class="{{ 'principal' if loop.first else '' }}">
+        <a href="{{ prop.url }}">
+          <div class="prop-card">
+            <img src="{{ prop.data.imagen }}" alt="{{ prop.data.titulo }}">
+            <div class="body">
+              <span class="estado">{{ prop.data.estado }}</span>
+              <h3>{{ prop.data.titulo }}</h3>
+              <p class="lugar">{{ prop.data.sector }}</p>
+              <p class="specs">
+                {% if prop.data.dormitorios %}{{ prop.data.dormitorios }} dorm.{% endif %}
+                {% if prop.data.construccion_m2 %} · {{ prop.data.construccion_m2 }} m²{% endif %}
+              </p>
+              <p class="precio">{{ prop.data.precio | moneda }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

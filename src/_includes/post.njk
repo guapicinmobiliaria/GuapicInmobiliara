@@ -1,0 +1,12 @@
+---
+layout: base.njk
+---
+<section>
+  <div class="wrap blog-post">
+    <p class="meta">{{ fecha | fechaLegible }}</p>
+    <h1>{{ titulo }}</h1>
+    {% if imagen %}<img src="{{ imagen }}" alt="{{ titulo }}">{% endif %}
+    <div>{{ content | safe }}</div>
+    <p style="margin-top:40px;"><a href="/blog/" style="color:var(--sage);">&larr; Volver al blog</a></p>
+  </div>
+</section>

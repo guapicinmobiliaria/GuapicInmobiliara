@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/images"
+public_folder: "/images"
+
+collections:
+  - name: "propiedades"
+    label: "Propiedades"
+    folder: "src/propiedades"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título", name: "titulo", widget: "string" }
+      - { label: "Sector", name: "sector", widget: "string" }
+      - { label: "Precio (USD)", name: "precio", widget: "number", value_type: "int" }
+      - { label: "Estado", name: "estado", widget: "string", default: "En venta" }
+      - { label: "Destacada", name: "destacada", widget: "boolean", default: false }
+      - { label: "Construcción (m²)", name: "construccion_m2", widget: "number", required: false }
+      - { label: "Terreno (m²)", name: "terreno_m2", widget: "number", required: false }
+      - { label: "Dormitorios", name: "dormitorios", widget: "number", required: false }
+      - { label: "Baños", name: "banos", widget: "number", required: false }
+      - { label: "Parqueaderos", name: "parqueaderos", widget: "number", required: false }
+      - { label: "Imagen principal", name: "imagen", widget: "image" }
+      - { label: "Resumen corto", name: "resumen", widget: "string" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "propiedad.njk" }
+      - { label: "Descripción", name: "body", widget: "markdown" }
+
+  - name: "blog"
+    label: "Blog"
+    folder: "src/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título", name: "titulo", widget: "string" }
+      - { label: "Fecha", name: "fecha", widget: "datetime" }
+      - { label: "Imagen", name: "imagen", widget: "image", required: false }
+      - { label: "Resumen corto", name: "resumen", widget: "string" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post.njk" }
+      - { label: "Contenido", name: "body", widget: "markdown" }

@@ -1,0 +1,114 @@
+---
+layout: base.njk
+titulo: Inicio
+---
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Asesoría inmobiliaria e ingeniería en Cuenca, Azogues y Paute</h1>
+      <p class="lede">Acompaño cada compra, venta y proyecto de construcción de principio a fin, con información clara y sin presión. Franklin Zeas, Lic. 547-A, ACBIR Azuay.</p>
+      <a class="btn" href="/propiedades/">Ver propiedades disponibles</a>
+      <div class="hero-stats">
+        <div><span class="num">4</span><span class="lab">Propiedades activas</span></div>
+        <div><span class="num">3</span><span class="lab">Ciudades: Cuenca, Azogues, Paute</span></div>
+        <div><span class="num">547-A</span><span class="lab">Licencia ACBIR Azuay</span></div>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <span class="tag">EN VENTA</span>
+      <img src="/images/placeholder-narancay.jpg" alt="Casa Narancay">
+      <span class="price">$345,000</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Propiedades destacadas</h2>
+        <p>Un vistazo al catálogo activo. Cada propiedad tiene ficha completa con specs, precio y contacto directo.</p>
+      </div>
+      <a href="/propiedades/" class="btn-outline">Ver todas</a>
+    </div>
+    <div class="catalogo-grid">
+      {% for prop in collections.propiedades %}
+      <div class="{{ 'principal' if loop.first else '' }}">
+        <a href="{{ prop.url }}">
+          <div class="prop-card">
+            <img src="{{ prop.data.imagen }}" alt="{{ prop.data.titulo }}">
+            <div class="body">
+              <span class="estado">{{ prop.data.estado }}</span>
+              <h3>{{ prop.data.titulo }}</h3>
+              <p class="lugar">{{ prop.data.sector }}</p>
+              <p class="precio">{{ prop.data.precio | moneda }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="wrap" style="display:grid; grid-template-columns: 1fr 1fr; gap:48px; align-items:center;">
+    <div>
+      <h2>¿Cuánto pagarías al mes?</h2>
+      <p style="color:#6b6153; margin-bottom: 22px;">Simula tu crédito hipotecario con tasas reales de Ecuador — VIP, BIESS o banca privada — antes de decidir.</p>
+      <a class="btn" href="/simulador/">Ir al simulador</a>
+    </div>
+    <div class="sim-resultado" style="margin-top:0;">
+      <div>
+        <span class="lab">Cuota estimada desde</span>
+        <span class="num">$612/mes</span>
+      </div>
+      <div>
+        <span class="lab">Tasa VIP</span>
+        <span class="num">5.14%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="display:grid; grid-template-columns: 1fr 1fr; gap:48px; align-items:center;">
+    <div class="prop-card" style="min-height:280px;">
+      <div class="body" style="justify-content:flex-end;">
+        <span class="estado">INGENIERÍA</span>
+        <h3 style="color:#fff; font-size:1.5rem;">¿Construyes o remodelas?</h3>
+        <p class="lugar">Diseño, construcción y fiscalización de obra en Cuenca, Azogues y Paute.</p>
+      </div>
+    </div>
+    <div>
+      <h2>Ingeniería y construcción</h2>
+      <p style="color:#6b6153; margin-bottom:22px;">Diseño arquitectónico, obra nueva, remodelación, fiscalización y trámites municipales — un servicio que complementa la asesoría inmobiliaria de principio a fin.</p>
+      <a class="btn-outline" href="/servicios/">Ver servicios de ingeniería</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Del blog</h2>
+        <p>Notas cortas sobre el mercado inmobiliario en Cuenca y alrededores.</p>
+      </div>
+      <a href="/blog/" class="btn-outline">Ver blog</a>
+    </div>
+    <div class="blog-list">
+      {% for post in collections.blog %}
+        {% if loop.index <= 2 %}
+        <a class="blog-item" href="{{ post.url }}">
+          <span class="fecha">{{ post.data.fecha | fechaLegible }}</span>
+          <div>
+            <h3>{{ post.data.titulo }}</h3>
+            <p>{{ post.data.resumen }}</p>
+          </div>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+layout: base.njk
+titulo: Contacto
+---
+<section>
+  <div class="wrap contact-grid">
+    <div class="contact-info">
+      <h2>Hablemos</h2>
+      <p style="color:#6b6153; margin-bottom:24px;">Respondo directo por WhatsApp casi siempre el mismo día.</p>
+      <div class="item"><span>WhatsApp</span><a href="https://wa.me/593969851813">0969 851 813</a></div>
+      <div class="item"><span>Correo</span><a href="mailto:zeasfranklin80@gmail.com">zeasfranklin80@gmail.com</a></div>
+      <div class="item"><span>Instagram</span><a href="https://instagram.com/franklinzeas.realtor">@franklinzeas.realtor</a></div>
+      <div class="item"><span>Zona de trabajo</span>Cuenca, Azogues y Paute, Ecuador</div>
+    </div>
+    <div>
+      <form class="contacto-form" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contacto">
+        <p style="display:none;"><label>No llenar: <input name="bot-field"></label></p>
+        <input type="text" name="nombre" placeholder="Tu nombre" required>
+        <input type="text" name="telefono" placeholder="Tu teléfono o WhatsApp" required>
+        <input type="email" name="email" placeholder="Tu correo (opcional)">
+        <textarea name="mensaje" placeholder="¿En qué te puedo ayudar?" required></textarea>
+        <button class="btn" type="submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>

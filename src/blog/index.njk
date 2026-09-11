@@ -1,0 +1,25 @@
+---
+layout: base.njk
+titulo: Blog
+---
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Blog</h2>
+        <p>Notas sobre el mercado inmobiliario en Cuenca, Azogues y Paute.</p>
+      </div>
+    </div>
+    <div class="blog-list">
+      {% for post in collections.blog %}
+      <a class="blog-item" href="{{ post.url }}">
+        <span class="fecha">{{ post.data.fecha | fechaLegible }}</span>
+        <div>
+          <h3>{{ post.data.titulo }}</h3>
+          <p>{{ post.data.resumen }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>

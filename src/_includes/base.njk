@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ titulo or "Guapic" }} — Guapic Inmobiliaria &amp; Ingeniería</title>
+  <meta name="description" content="{{ descripcion or 'Asesoría inmobiliaria en Cuenca, Azogues y Paute. Franklin Zeas, Lic. 547-A, ACBIR Azuay.' }}">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img class="mark" src="/images/marca-guapic.png" alt="Guapic">
+        <span class="brand-text">
+          <span class="name">GUAPIC</span>
+          <small>INMOBILIARIA &amp; INGENIERÍA</small>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="/propiedades/">Propiedades</a>
+        <a href="/servicios/">Ingeniería</a>
+        <a href="/simulador/">Simulador</a>
+        <a href="/blog/">Blog</a>
+        <a href="/sobre-mi/">Sobre mí</a>
+        <a href="/contacto/">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="lion-mark">
+        <img src="/images/marca-guapic.png" alt="Guapic" style="height:28px; width:auto;">
+        <span>GUAPIC INMOBILIARIA &amp; INGENIERÍA — Franklin Zeas</span>
+      </div>
+      <div>Lic. 547-A · ACBIR Azuay · Cuenca, Ecuador</div>
+      <div><a href="https://wa.me/593969851813">WhatsApp</a> · <a href="https://instagram.com/franklinzeas.realtor">Instagram</a></div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+---
+layout: base.njk
+titulo: Simulador de crédito
+---
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Simulador de crédito hipotecario</h2>
+        <p>Tasas de referencia de Ecuador. Resultado estimado — confirma siempre con tu entidad financiera.</p>
+      </div>
+    </div>
+    <div class="simulador-box">
+      <div class="sim-grid">
+        <div class="field">
+          <label for="valor">Valor de la propiedad ($)</label>
+          <input type="number" id="valor" value="150000" min="0" step="1000">
+        </div>
+        <div class="field">
+          <label for="entrada">Entrada (%)</label>
+          <input type="number" id="entrada" value="20" min="0" max="90" step="1">
+        </div>
+        <div class="field">
+          <label for="plazo">Plazo (años)</label>
+          <input type="number" id="plazo" value="20" min="1" max="30" step="1">
+        </div>
+        <div class="field">
+          <label for="tasa">Tipo de crédito</label>
+          <select id="tasa">
+            <option value="5.14">VIP — 5.14%</option>
+            <option value="8.24">BIESS — 8.24%</option>
+            <option value="10.66">Banca privada — 10.66%</option>
+            <option value="11.33">Techo BCE — 11.33%</option>
+          </select>
+        </div>
+      </div>
+      <div class="sim-resultado">
+        <div><span class="lab">Monto a financiar</span><span class="num" id="out-monto">$0</span></div>
+        <div><span class="lab">Cuota mensual estimada</span><span class="num" id="out-cuota">$0</span></div>
+        <div><span class="lab">Total de intereses</span><span class="num" id="out-intereses">$0</span></div>
+      </div>
+    </div>
+    <p style="margin-top:20px; font-size:0.85rem; color:#6b6153;">Cálculo por amortización francesa (cuota fija). Las tasas son referenciales y pueden variar según la entidad y el perfil del solicitante.</p>
+  </div>
+</section>
+
+<script>
+  function fmt(n) {
+    return '$' + n.toLocaleString('es-EC', { maximumFractionDigits: 0 });
+  }
+  function calcular() {
+    const valor = parseFloat(document.getElementById('valor').value) || 0;
+    const entradaPct = parseFloat(document.getElementById('entrada').value) || 0;
+    const plazoAnios = parseFloat(document.getElementById('plazo').value) || 1;
+    const tasaAnual = parseFloat(document.getElementById('tasa').value) || 0;
+
+    const entrada = valor * (entradaPct / 100);
+    const monto = valor - entrada;
+    const n = plazoAnios * 12;
+    const i = (tasaAnual / 100) / 12;
+
+    let cuota = 0;
+    if (i > 0) {
+      cuota = monto * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+    } else {
+      cuota = monto / n;
+    }
+    const totalPagado = cuota * n;
+    const intereses = totalPagado - monto;
+
+    document.getElementById('out-monto').textContent = fmt(monto);
+    document.getElementById('out-cuota').textContent = fmt(cuota) + '/mes';
+    document.getElementById('out-intereses').textContent = fmt(intereses);
+  }
+  ['valor','entrada','plazo','tasa'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcular);
+    document.getElementById(id).addEventListener('change', calcular);
+  });
+  calcular();
+</script>
