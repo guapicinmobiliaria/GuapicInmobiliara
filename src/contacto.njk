@@ -6,10 +6,11 @@ titulo: Contacto
   <div class="wrap contact-grid">
     <div class="contact-info">
       <h2>Hablemos</h2>
-      <p style="color:#6b6153; margin-bottom:24px;">Respondo directo por WhatsApp casi siempre el mismo día.</p>
+      <p style="color:#6b6153; margin-bottom:24px;">Te respondemos por WhatsApp casi siempre el mismo día.</p>
       <div class="item"><span>WhatsApp</span><a href="https://wa.me/593969851813">0969 851 813</a></div>
-      <div class="item"><span>Correo</span><a href="mailto:zeasfranklin80@gmail.com">zeasfranklin80@gmail.com</a></div>
+      <div class="item"><span>Correo</span><a href="mailto:guapic.inmobiliaria@gmail.com">guapic.inmobiliaria@gmail.com</a></div>
       <div class="item"><span>Instagram</span><a href="https://instagram.com/franklinzeas.realtor">@franklinzeas.realtor</a></div>
+      <div class="item"><span>Oficina</span>Timoleón Carrera y Ezequiel Márquez, Cuenca, Ecuador</div>
       <div class="item"><span>Zona de trabajo</span>Cuenca, Azogues y Paute, Ecuador</div>
     </div>
     <div>
@@ -19,7 +20,15 @@ titulo: Contacto
         <input type="text" name="nombre" placeholder="Tu nombre" required>
         <input type="text" name="telefono" placeholder="Tu teléfono o WhatsApp" required>
         <input type="email" name="email" placeholder="Tu correo (opcional)">
-        <textarea name="mensaje" placeholder="¿En qué te puedo ayudar?" required></textarea>
+        <select name="motivo" required>
+          <option value="" disabled selected>¿En qué área podemos ayudarte?</option>
+          <option value="Comprar una propiedad">Quiero comprar una propiedad</option>
+          <option value="Vender o rentar mi propiedad">Quiero vender o rentar mi propiedad</option>
+          <option value="Invertir">Busco oportunidades de inversión</option>
+          <option value="Proyecto de ingeniería">Tengo un proyecto de ingeniería/construcción</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <textarea name="mensaje" placeholder="Cuéntanos más detalles" required></textarea>
         <button class="btn" type="submit">Enviar mensaje</button>
       </form>
     </div>

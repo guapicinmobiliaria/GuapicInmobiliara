@@ -2,113 +2,286 @@
 layout: base.njk
 titulo: Inicio
 ---
-<section class="hero">
-  <div class="wrap">
-    <div>
-      <h1>Asesoría inmobiliaria e ingeniería en Cuenca, Azogues y Paute</h1>
-      <p class="lede">Acompaño cada compra, venta y proyecto de construcción de principio a fin, con información clara y sin presión. Franklin Zeas, Lic. 547-A, ACBIR Azuay.</p>
-      <a class="btn" href="/propiedades/">Ver propiedades disponibles</a>
-      <div class="hero-stats">
-        <div><span class="num">4</span><span class="lab">Propiedades activas</span></div>
-        <div><span class="num">3</span><span class="lab">Ciudades: Cuenca, Azogues, Paute</span></div>
-        <div><span class="num">547-A</span><span class="lab">Licencia ACBIR Azuay</span></div>
+<section class="hero-v2">
+  <img class="hero-v2-bg" src="/images/hero-bg-guapic.jpg" alt="Cuenca, Ecuador">
+  <div class="hero-v2-overlay"></div>
+  <div class="wrap hero-v2-content">
+    <p class="eyebrow">BIENVENIDO A GUAPIC</p>
+    <h1>Encuentra un lugar que se sienta como <span class="script">hogar</span>.</h1>
+    <p class="lede">Asesoría inmobiliaria e ingeniería para que hagas realidad tus proyectos, con seguridad, experiencia y confianza.</p>
+    <a class="btn" href="/propiedades/">Ver propiedades →</a>
+  </div>
+
+  {% set destacada = collections.propiedades[0] %}
+  {% if destacada %}
+  <a class="hero-v2-card" href="{{ destacada.url }}">
+    <img src="{{ destacada.data.imagen }}" alt="{{ destacada.data.titulo }}">
+    <div class="hero-v2-card-body">
+      <span class="tag-mini">Destacado</span>
+      <h3>{{ destacada.data.titulo }}</h3>
+      <p class="lugar">{{ destacada.data.sector }}</p>
+      <p class="precio">{{ destacada.data.precio | moneda }}</p>
+    </div>
+    <span class="arrow-circle">→</span>
+  </a>
+  {% endif %}
+
+  <div class="search-widget wrap">
+    <div class="search-tabs">
+      <button class="active" type="button">Comprar</button>
+      <button type="button">Alquilar</button>
+    </div>
+    <form class="search-fields" action="/propiedades/" method="get">
+      <div class="search-field">
+        <span class="lab">Ubicación</span>
+        <select name="ubicacion"><option>Todas las ubicaciones</option><option>Cuenca</option><option>Azogues</option><option>Paute</option></select>
       </div>
-    </div>
-    <div class="hero-figure">
-      <span class="tag">EN VENTA</span>
-      <img src="/images/placeholder-narancay.jpg" alt="Casa Narancay">
-      <span class="price">$345,000</span>
-    </div>
+      <div class="search-field">
+        <span class="lab">Tipo de propiedad</span>
+        <select name="tipo"><option>Todas las propiedades</option><option>Casa</option><option>Departamento</option><option>Terreno</option></select>
+      </div>
+      <div class="search-field">
+        <span class="lab">Precio</span>
+        <select name="precio"><option>Todos los precios</option><option>Hasta $150,000</option><option>$150,000–$300,000</option><option>Más de $300,000</option></select>
+      </div>
+      <button class="btn search-btn" type="submit">🔍 Buscar</button>
+    </form>
   </div>
 </section>
 
-<section>
+<section class="stats-bar reveal">
+  <div class="wrap">
+    <div><span class="icon">🏠</span><div><b data-count="{{ collections.propiedades.length }}" data-prefix="+">+0</b><span>Propiedades disponibles</span></div></div>
+    <div><span class="icon">👥</span><div><b data-count="100" data-prefix="+">+0</b><span>Clientes satisfechos</span></div></div>
+    <div><span class="icon">🛡️</span><div><b>Desde 2021</b><span>De experiencia</span></div></div>
+    <div><span class="icon">⚙️</span><div><b data-count="2">0</b><span>Áreas: comercial e ingeniería</span></div></div>
+  </div>
+</section>
+
+<section class="reveal">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <h2>Propiedades destacadas</h2>
-        <p>Un vistazo al catálogo activo. Cada propiedad tiene ficha completa con specs, precio y contacto directo.</p>
+        <p class="eyebrow">PROPIEDADES DESTACADAS</p>
+        <h2>Las mejores opciones para ti</h2>
       </div>
-      <a href="/propiedades/" class="btn-outline">Ver todas</a>
+      <a href="/propiedades/" class="btn-outline">Ver todas las propiedades</a>
     </div>
-    <div class="catalogo-grid">
-      {% for prop in collections.propiedades %}
-      <div class="{{ 'principal' if loop.first else '' }}">
-        <a href="{{ prop.url }}">
-          <div class="prop-card">
-            <img src="{{ prop.data.imagen }}" alt="{{ prop.data.titulo }}">
-            <div class="body">
-              <span class="estado">{{ prop.data.estado }}</span>
-              <h3>{{ prop.data.titulo }}</h3>
-              <p class="lugar">{{ prop.data.sector }}</p>
-              <p class="precio">{{ prop.data.precio | moneda }}</p>
-            </div>
+    <div class="carousel-wrap">
+      <button class="carousel-arrow left" type="button" aria-label="Anterior">←</button>
+      <div class="carousel-track reveal-stagger">
+        {% for prop in collections.propiedades %}
+        <a href="{{ prop.url }}" class="carousel-card {{ 'principal' if loop.first else '' }}">
+          <div class="carousel-img"><img src="{{ prop.data.imagen }}" alt="{{ prop.data.titulo }}"></div>
+          {% if prop.data.destacada %}<span class="tag-mini floating">Destacado</span>{% endif %}
+          <div class="carousel-body">
+            <p class="lugar">📍 {{ prop.data.sector }}</p>
+            <h3>{{ prop.data.titulo }}</h3>
+            <p class="specs-mini">
+              {% if prop.data.dormitorios %}🛏 {{ prop.data.dormitorios }}{% endif %}
+              {% if prop.data.banos %} &nbsp;🛁 {{ prop.data.banos }}{% endif %}
+              {% if prop.data.construccion_m2 %} &nbsp;📐 {{ prop.data.construccion_m2 }} m²{% endif %}
+            </p>
+            <p class="precio">{{ prop.data.precio | moneda }}</p>
           </div>
         </a>
+        {% endfor %}
       </div>
-      {% endfor %}
+      <button class="carousel-arrow right" type="button" aria-label="Siguiente">→</button>
     </div>
   </div>
 </section>
 
-<section style="background:#fff;">
-  <div class="wrap" style="display:grid; grid-template-columns: 1fr 1fr; gap:48px; align-items:center;">
-    <div>
-      <h2>¿Cuánto pagarías al mes?</h2>
-      <p style="color:#6b6153; margin-bottom: 22px;">Simula tu crédito hipotecario con tasas reales de Ecuador — VIP, BIESS o banca privada — antes de decidir.</p>
-      <a class="btn" href="/simulador/">Ir al simulador</a>
+<section class="explora-section reveal">
+  <img class="explora-bg" src="/images/explora-bg.jpg" alt="Cuenca">
+  <div class="explora-overlay"></div>
+  <div class="wrap explora-content">
+    <div class="explora-text">
+      <p class="eyebrow">EXPLORA CUENCA</p>
+      <h2>Encuentra tu lugar ideal en la ciudad</h2>
+      <p class="lede" style="color:#D8DDE3;">Cada sector tiene su esencia. Descubre la ubicación que se adapta a tu estilo de vida.</p>
+      <a class="btn" href="/propiedades/">Explorar ubicaciones</a>
     </div>
-    <div class="sim-resultado" style="margin-top:0;">
-      <div>
-        <span class="lab">Cuota estimada desde</span>
-        <span class="num">$612/mes</span>
-      </div>
-      <div>
-        <span class="lab">Tasa VIP</span>
-        <span class="num">5.14%</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap" style="display:grid; grid-template-columns: 1fr 1fr; gap:48px; align-items:center;">
-    <div class="prop-card" style="min-height:280px;">
-      <div class="body" style="justify-content:flex-end;">
-        <span class="estado">INGENIERÍA</span>
-        <h3 style="color:#fff; font-size:1.5rem;">¿Construyes o remodelas?</h3>
-        <p class="lugar">Diseño, construcción y fiscalización de obra en Cuenca, Azogues y Paute.</p>
-      </div>
-    </div>
-    <div>
-      <h2>Ingeniería y construcción</h2>
-      <p style="color:#6b6153; margin-bottom:22px;">Diseño arquitectónico, obra nueva, remodelación, fiscalización y trámites municipales — un servicio que complementa la asesoría inmobiliaria de principio a fin.</p>
-      <a class="btn-outline" href="/servicios/">Ver servicios de ingeniería</a>
+    <div class="explora-tiles">
+      <a class="explora-tile" href="/propiedades/"><img src="/images/explora-centro.jpg" alt="Centro Histórico"><span>Centro Histórico<small>Tradición y cultura</small></span></a>
+      <a class="explora-tile" href="/propiedades/casa-misicata/"><img src="/images/explora-misicata.jpg" alt="Misicata"><span>Misicata<small>Naturaleza y tranquilidad</small></span></a>
+      <a class="explora-tile" href="/propiedades/casa-ordonez-lasso/"><img src="/images/explora-ordonez.jpg" alt="Ordóñez Lasso"><span>Ordóñez Lasso<small>Comodidad y plusvalía</small></span></a>
+      <a class="explora-tile" href="/propiedades/las-pencas/"><img src="/images/explora-pencas.jpg" alt="Pencas Altas"><span>Pencas Altas<small>Exclusividad y vistas</small></span></a>
     </div>
   </div>
 </section>
 
-<section>
+<section style="background:#fff;" class="reveal">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <h2>Del blog</h2>
-        <p>Notas cortas sobre el mercado inmobiliario en Cuenca y alrededores.</p>
+        <p class="eyebrow">NUESTROS SERVICIOS</p>
+        <h2>Más que propiedades, soluciones integrales</h2>
+        <p>Te acompañamos en todo el proceso, desde la búsqueda hasta el desarrollo de tus proyectos de ingeniería.</p>
       </div>
-      <a href="/blog/" class="btn-outline">Ver blog</a>
+      <a href="/servicios/" class="btn-outline">Conocer nuestros servicios</a>
     </div>
-    <div class="blog-list">
+    <div class="servicios-grid">
+      <a class="servicio-card" href="/propiedades/">
+        <img src="/images/servicio-asesoria.jpg" alt="Asesoría Inmobiliaria">
+        <div class="servicio-card-body">
+          <h3>🏠 Asesoría Inmobiliaria</h3>
+          <p>Te ayudamos a encontrar la propiedad ideal, con un acompañamiento personalizado y profesional.</p>
+          <span class="link-mini">Saber más →</span>
+        </div>
+      </a>
+      <a class="servicio-card" href="/servicios/">
+        <img src="/images/servicio-ingenieria.jpg" alt="Ingeniería y Construcción">
+        <div class="servicio-card-body">
+          <h3>🏗️ Ingeniería y Construcción</h3>
+          <p>Diseñamos y construimos proyectos seguros, funcionales y de alta calidad.</p>
+          <span class="link-mini">Saber más →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="confianza-section reveal">
+  <div class="wrap">
+    <div class="confianza-intro">
+      <p class="eyebrow">NUESTRO EQUIPO</p>
+      <h2>Tu confianza nos impulsa</h2>
+      <p class="lede" style="color:#D8DDE3; max-width:56ch;">Cada proyecto, cada familia y cada sueño nos motiva a seguir creciendo. Toca a cada persona para conocerla mejor.</p>
+    </div>
+
+    <div class="equipo-bio-grid reveal-stagger">
+      <button class="equipo-bio-card" type="button" data-target="bio-juancarlos">
+        <img src="/images/placeholder-juancarlos.jpg" alt="Juan Carlos Guamán">
+        <h3>Juan Carlos Guamán</h3>
+        <span class="cargo-mini">CEO</span>
+      </button>
+      <button class="equipo-bio-card" type="button" data-target="bio-franklin">
+        <img src="/images/placeholder-franklin.jpg" alt="Franklin Zeas">
+        <h3>Franklin Zeas</h3>
+        <span class="cargo-mini">Broker · Lic. 547-A</span>
+      </button>
+      <button class="equipo-bio-card" type="button" data-target="bio-andrea">
+        <img src="/images/placeholder-andrea.jpg" alt="Andrea Pietropaolo">
+        <h3>Andrea Pietropaolo</h3>
+        <span class="cargo-mini">Gerente de Ventas</span>
+      </button>
+      <button class="equipo-bio-card" type="button" data-target="bio-miriam">
+        <img src="/images/placeholder-miriam.jpg" alt="Miriam Cabrera">
+        <h3>Miriam Cabrera</h3>
+        <span class="cargo-mini">Broker</span>
+      </button>
+      <button class="equipo-bio-card" type="button" data-target="bio-mary">
+        <img src="/images/placeholder-mary.jpg" alt="Mary Suárez">
+        <h3>Mary Suárez</h3>
+        <span class="cargo-mini">Broker</span>
+      </button>
+      <button class="equipo-bio-card" type="button" data-target="bio-carolina">
+        <img src="/images/placeholder-carolina.jpg" alt="Carolina García Bac">
+        <h3>Carolina García Bac</h3>
+        <span class="cargo-mini">Inversionista Inmobiliaria</span>
+      </button>
+      <button class="equipo-bio-card" type="button" data-target="bio-ruben">
+        <img src="/images/placeholder-ruben.jpg" alt="Rubén Lema">
+        <h3>Rubén Lema</h3>
+        <span class="cargo-mini">Ingeniero Civil</span>
+      </button>
+    </div>
+
+    <div class="equipo-bio-panel" id="bio-juancarlos">
+      <h3>Juan Carlos Guamán — CEO</h3>
+      <p>Lidera la visión de Guapic, asegurando que cada propiedad y cada proyecto de ingeniería se manejen con transparencia y altos estándares de servicio en Cuenca, Azogues y Paute.</p>
+    </div>
+    <div class="equipo-bio-panel" id="bio-franklin">
+      <h3>Franklin Zeas — Broker · Lic. 547-A</h3>
+      <p>Asesor inmobiliario certificado (ACBIR Azuay), acompaña a compradores y vendedores en todo el proceso, con información clara y sin presión, de principio a fin.</p>
+    </div>
+    <div class="equipo-bio-panel" id="bio-andrea">
+      <h3>Andrea Pietropaolo — Gerente de Ventas</h3>
+      <p>Coordina al equipo comercial de Guapic, cuidando que cada cliente reciba un acompañamiento personalizado desde el primer contacto hasta el cierre.</p>
+    </div>
+    <div class="equipo-bio-panel" id="bio-miriam">
+      <h3>Miriam Cabrera — Broker</h3>
+      <p>Especialista en propiedades residenciales en Cuenca, ayuda a las familias a encontrar el hogar que se ajusta a su presupuesto y estilo de vida.</p>
+    </div>
+    <div class="equipo-bio-panel" id="bio-mary">
+      <h3>Mary Suárez — Broker</h3>
+      <p>Con enfoque en atención cercana y seguimiento constante, guía a sus clientes en cada paso de la compra o venta de su propiedad.</p>
+    </div>
+    <div class="equipo-bio-panel" id="bio-carolina">
+      <h3>Carolina García Bac — Inversionista Inmobiliaria</h3>
+      <p>Aporta visión de inversión a Guapic, identificando oportunidades de plusvalía y proyectos con potencial de crecimiento en la región.</p>
+    </div>
+    <div class="equipo-bio-panel" id="bio-ruben">
+      <h3>Rubén Lema — Ingeniero Civil · Gerente del Área de Ingeniería</h3>
+      <p>Dirige los proyectos de diseño, construcción y fiscalización de obra de Guapic, garantizando calidad y cumplimiento de normativa municipal.</p>
+    </div>
+
+    <div class="confianza-stats">
+      <div><b data-count="50" data-prefix="+">+0</b><span>Proyectos completados</span></div>
+      <div><b data-count="100" data-prefix="+">+0</b><span>Familias asesoradas</span></div>
+      <div><b>Desde 2021</b><span>Construyendo confianza</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">BLOG</p>
+        <h2>Consejos, tendencias y novedades</h2>
+      </div>
+      <a href="/blog/" class="btn-outline">Ver todos los artículos</a>
+    </div>
+    <div class="blog-cards-grid">
       {% for post in collections.blog %}
-        {% if loop.index <= 2 %}
-        <a class="blog-item" href="{{ post.url }}">
-          <span class="fecha">{{ post.data.fecha | fechaLegible }}</span>
-          <div>
-            <h3>{{ post.data.titulo }}</h3>
-            <p>{{ post.data.resumen }}</p>
-          </div>
+        {% if loop.index <= 4 %}
+        <a class="blog-card" href="{{ post.url }}">
+          <div class="blog-card-img"><img src="{{ post.data.imagen }}" alt="{{ post.data.titulo }}"></div>
+          <p class="fecha">{{ post.data.fecha | fechaLegible }}</p>
+          <h3>{{ post.data.titulo }}</h3>
         </a>
         {% endif %}
       {% endfor %}
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var track = document.querySelector('.carousel-track');
+    var left = document.querySelector('.carousel-arrow.left');
+    var right = document.querySelector('.carousel-arrow.right');
+    if (track && left && right) {
+      var scrollAmount = function () { return track.clientWidth * 0.8; };
+      left.addEventListener('click', function () { track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }); });
+      right.addEventListener('click', function () { track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }); });
+    }
+    var tabs = document.querySelectorAll('.search-tabs button');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+      });
+    });
+    var bioCards = document.querySelectorAll('.equipo-bio-card');
+    var bioPanels = document.querySelectorAll('.equipo-bio-panel');
+    bioCards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        var targetId = card.getAttribute('data-target');
+        var isAlreadyOpen = card.classList.contains('is-active');
+        bioCards.forEach(function (c) { c.classList.remove('is-active'); });
+        bioPanels.forEach(function (p) { p.classList.remove('is-open'); });
+        if (!isAlreadyOpen) {
+          card.classList.add('is-active');
+          var panel = document.getElementById(targetId);
+          if (panel) {
+            panel.classList.add('is-open');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      });
+    });
+  })();
+</script>
